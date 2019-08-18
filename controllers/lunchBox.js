@@ -16,7 +16,9 @@ exports.get = (req, res) => {
     );
   } else {
     // Busca todas as marmitas
-    lunchBoxDal.selectAll((lunchBoxes) => {
+    lunchBoxDal.selectAll(
+      false, // Indica pra listar apenas os que estivar com estoque > 0
+      (lunchBoxes) => {
       // Se houver marmitas, retorna as marmitas
       if(lunchBoxes.length > 0) {
         res.json(lunchBoxes);
@@ -28,7 +30,23 @@ exports.get = (req, res) => {
   }
 }
 
-exports.insertAndUpdate = (router) => {
+exports.api = (router) => {
+
+  router.get('/', (req, res) => {
+    // Insere uma marmita
+    lunchBoxDal.selectAll(
+      true, // Indica pra listar até os que estivar com 0 estoque
+      (lunchBox) => {
+        // Se o cadastro for efetuado com sucesso retornará a marmita
+        if(lunchBox) {
+          res.json(lunchBox);
+        } else {
+          res.status(401).json({ error: { message: 'Failed to register lunch box!' } });
+        }
+      }
+    );
+  });
+
   router.post('/', (req, res) => {
     const {
       name,

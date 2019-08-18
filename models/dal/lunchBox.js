@@ -37,13 +37,13 @@ exports.select = ({ id }, callback = () => {}) => {
 };
 
 // Selecionar todas as marmitas
-exports.selectAll = (callback = () => {}) => {
+exports.selectAll = (all, callback = () => {}) => {
   // Iniciar conexão com banco de dados
   const connection = database.connect();
 
   try {
     connection.query(
-      `SELECT * FROM lunchbox`,
+      `SELECT * FROM lunchbox ${all ? '' : 'WHERE quantity > 0'}`,
       (error, results) => {
         if (error) throw error;
 

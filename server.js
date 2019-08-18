@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 // Liberar CORS para teste com o frontend em desenvolvimento
 app.use((req, res, next) => {
+  console.log(req.headers)
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 app.use('/api', require('./middlewares/auth'));
 
 // Adiciona rota para inserir e alterar marmita
-app.use('/api/lunchbox', require('./controllers/lunchBox').insertAndUpdate(router));
+app.use('/api/lunchbox', require('./controllers/lunchBox').api(router));
 
 // Adiciona rota para selecionar marmita
 app.use('/lunchbox/:id', require('./controllers/lunchBox').get);
