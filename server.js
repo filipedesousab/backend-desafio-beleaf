@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 
 // Liberar CORS para teste com o frontend em desenvolvimento
 app.use((req, res, next) => {
-  console.log(req.headers)
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -32,6 +31,9 @@ app.use('/lunchbox/:id', require('./controllers/lunchBox').get);
 app.use('/lunchbox', require('./controllers/lunchBox').get);
 
 // Adiciona o controlador para rota do "/login"
-app.use('/', require('./controllers/user')(router));
+app.use('/user', require('./controllers/user')(router));
+
+// Entregar arquivos estáticos
+app.use('/', express.static('public'));
 
 module.exports = app;
