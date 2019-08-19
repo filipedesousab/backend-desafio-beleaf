@@ -32,13 +32,15 @@ module.exports = (router) => {
       { name, username, password },
       (user) => {
         // Se o cadastro for efetuado com sucesso retornará o usuário
-        if(user) {
+        if(!user.error) {
           res.json({
             ...user,
             jwt: jwt.sign({ id: user.id }, config.JWT_SECRET, { expiresIn: 60*60 }),
           });
+        } else if (user.error === 'duplicate') {
+          res.status(401).json({ error: { message: 'Duplicate username!' } });
         } else {
-          res.status(401).json({ error: { message: 'Failed to register user!' } });
+          res.status(500).json({ error: { message: 'Failed to register user!' } });
         }
       }
     );

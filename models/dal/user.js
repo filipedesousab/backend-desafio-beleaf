@@ -49,15 +49,23 @@ exports.insert = ({ name, username, password }, callback = () => {}) => {
     connection.query(
       `INSERT INTO user (name, username, hash) VALUES ('${name}', '${username}', '${hash}')`,
       (error, results) => {
-        if (error) throw error;
+        if (error) {
+          if (error.errno == 1062) {
+            callback({ error: 'duplicate' });
+          }
+          throw error;
+        };
 
         callback({
           id: results.insertId,
           name,
           username,
+          error: false,
         });
       },
     );
+  } catch(err) {
+    console.log('CATCH ERR', err)
   } finally {
     // Finalizar conexão com banco de dados
     connection.end();
