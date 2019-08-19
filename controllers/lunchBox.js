@@ -33,15 +33,15 @@ exports.get = (req, res) => {
 exports.api = (router) => {
 
   router.get('/', (req, res) => {
-    // Insere uma marmita
+    // Seleciona todas as marmitas
     lunchBoxDal.selectAll(
-      true, // Indica pra listar até os que estivar com 0 estoque
+      true, // Indica pra listar até os que estiverem com 0 estoque
       (lunchBox) => {
-        // Se o cadastro for efetuado com sucesso retornará a marmita
+        // Se a solicitação for efetuada com sucesso retornará a marmita
         if(lunchBox) {
           res.json(lunchBox);
         } else {
-          res.status(401).json({ error: { message: 'Failed to register lunch box!' } });
+          res.status(401).json({ error: { message: 'Failed to get lunch boxes!' } });
         }
       }
     );
@@ -92,7 +92,7 @@ exports.api = (router) => {
       ingredients,
     } = req.body;
 
-    // Insere uma marmita
+    // Atualiza dados de uma marmita
     lunchBoxDal.update(
       {
         id,
@@ -105,11 +105,11 @@ exports.api = (router) => {
         ingredients,
       },
       (lunchBox) => {
-        // Se o cadastro for efetuado com sucesso retornará a marmita
+        // Se a atualização for efetuado com sucesso retornará a marmita
         if(lunchBox) {
           res.json(lunchBox);
         } else {
-          res.status(401).json({ error: { message: 'Failed to register lunch box!' } });
+          res.status(401).json({ error: { message: 'Failed to update lunch box!' } });
         }
       }
     );
