@@ -124,11 +124,9 @@ Requisição:
 - Paginação da lista de marmitas
 - Ordeneçã da lista de marmitas
 
-## Melhorias a serem desenvolvidas
-- Melhorar a máscara de dinheiro
+## Melhorias a serem desenvolvidas no backend
 - Gestão de usuários
 - Melhorar estrutura do banco de dados
-- Design mais indicado aos usuários não administradores
 
 ## Instalação
 
@@ -140,10 +138,28 @@ Pasta do Projeto\
 |_ backend (pasta desse repositório)\
 |_ frontend (pasta do outro repositório)
 
-- Criar pasta para todo o projeto
+- Criar pasta para todo o projeto (Ou entrar na pasta já criada)
 - Clonar repositório
 - Renomear pasta do repositório para "backend"
 - Entrar na pasta backend e instalar dependenciar com "yarn" ou "npm install"
+
+## Configurações
+
+Estão disponíveis algumas congigurações no arquivo config.js
+
+```json
+{
+  PORT: 8080, // Porta do servidor local
+  // Chave do JWT
+  JWT_SECRET: '9uefSzpIt2y0iUEn3cT5CWpyG5esScG7QnvosWN5E3X',
+  database: {
+    host: 'kulpper.com', // Endereço do banco de dados
+    dbname: 'kulpperc_beleaf', // Nome do banco de dados
+    user: 'kulpperc_beleaf', // Usuário do banco de dados
+    password: 'desafiobeleaf' // Senha do banco de dados
+  }
+}
+```
 
 ## Execução
 - Entrar na pasta do backend
